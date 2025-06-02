@@ -7,13 +7,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ge.Admin.WebApi", "Ge.Admin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ge.Common", "Ge.Common\Ge.Common.csproj", "{7B579DE7-0656-4037-A869-69B99A31E80A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ge.Infrastructure", "Ge.Infrastructure\Ge.Infrastructure.csproj", "{FE633758-24EF-40CE-A167-2AE56219C4BB}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ge.Repository", "Ge.Repository\Ge.Repository.csproj", "{B5D5E1B0-72F9-4D46-874A-E108D5B8FE68}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ge.Model", "Ge.Model\Ge.Model.csproj", "{3F7A0E69-5956-4F36-A966-4A2AB6045706}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ge.ServiceCore", "Ge.ServiceCore\Ge.ServiceCore.csproj", "{7DFE60AF-A104-4E70-BD67-F22EDC0DE02A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ge.Infrastructure", "Ge.Infrastructure\Ge.Infrastructure.csproj", "{91C5E399-7F34-4580-8454-4BCF0819274B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,6 @@ Global
 		{7B579DE7-0656-4037-A869-69B99A31E80A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B579DE7-0656-4037-A869-69B99A31E80A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B579DE7-0656-4037-A869-69B99A31E80A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FE633758-24EF-40CE-A167-2AE56219C4BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FE633758-24EF-40CE-A167-2AE56219C4BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FE633758-24EF-40CE-A167-2AE56219C4BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FE633758-24EF-40CE-A167-2AE56219C4BB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B5D5E1B0-72F9-4D46-874A-E108D5B8FE68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B5D5E1B0-72F9-4D46-874A-E108D5B8FE68}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5D5E1B0-72F9-4D46-874A-E108D5B8FE68}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,6 +41,10 @@ Global
 		{7DFE60AF-A104-4E70-BD67-F22EDC0DE02A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7DFE60AF-A104-4E70-BD67-F22EDC0DE02A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7DFE60AF-A104-4E70-BD67-F22EDC0DE02A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91C5E399-7F34-4580-8454-4BCF0819274B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91C5E399-7F34-4580-8454-4BCF0819274B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91C5E399-7F34-4580-8454-4BCF0819274B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91C5E399-7F34-4580-8454-4BCF0819274B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
