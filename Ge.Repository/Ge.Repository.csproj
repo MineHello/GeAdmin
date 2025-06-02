@@ -6,9 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Ge.Infrastructure\Ge.Infrastructure.csproj" />
-    <ProjectReference Include="..\Ge.Model\Ge.Model.csproj" />
-  </ItemGroup>
-
 </Project>

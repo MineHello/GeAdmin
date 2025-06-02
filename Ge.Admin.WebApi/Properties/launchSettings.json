@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "Ge.Admin": {
+    "http": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
