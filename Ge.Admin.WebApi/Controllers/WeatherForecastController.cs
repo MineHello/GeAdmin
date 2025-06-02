@@ -1,5 +1,8 @@
 using Ge.Infrastructure;
+using Ge.Infrastructure.Options;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using System.Text.Json.Serialization;
 
 namespace Ge.Admin.WebApi.Controllers
 {
@@ -10,16 +13,18 @@ namespace Ge.Admin.WebApi.Controllers
         
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly IOptions<RedisOptions> options;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IOptions<RedisOptions> options)
         {
             _logger = logger;
+            this.options = options;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
-        public string Get()
-        {
-            return AppSettings.GetValue("name");
+        public object Get()
+        {            
+            return options.Value;
         }
     }
 }
