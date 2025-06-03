@@ -7,6 +7,7 @@ using Ge.Infrastructure.AotuFac;
 using Ge.Infrastructure.Options;
 using Ge.Repository;
 using Ge.ServiceCore;
+using Ge.ServiceCore.SqlSugar;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,7 +29,7 @@ builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 builder.Services.AddScoped(typeof(IBaseService<>), typeof(BaseService<>));
 builder.Services.AddSingleton(new AppSettings(builder.Configuration));
 builder.Services.AddAllOptionRegister();
-
+builder.Services.AddSqlsugarSetup();
 #endregion
 
 

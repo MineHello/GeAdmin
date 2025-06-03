@@ -9,5 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Mapster" Version="7.4.0" />
   </ItemGroup>
-
+	<ItemGroup>
+		<PackageReference Include="SqlSugarCore" Version="5.1.4.145" />
+	</ItemGroup>
 </Project>

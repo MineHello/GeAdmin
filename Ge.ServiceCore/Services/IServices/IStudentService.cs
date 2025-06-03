@@ -1,13 +1,13 @@
-﻿using SqlSugar;
+﻿using Ge.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ge.Repository
+namespace Ge.ServiceCore.Services.IServices
 {
-    public interface IBaseRepository<T> :ISimpleClient<T> where T : class,new()
+    public interface IStudentService : IBaseService<Students>
     {
 
     }
