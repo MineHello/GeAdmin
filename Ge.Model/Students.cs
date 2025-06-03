@@ -11,5 +11,7 @@ namespace Ge.Model
         [SqlSugar.SugarColumn(IsPrimaryKey =true,IsIdentity =true)]
         public int StudentId { get; set; }
         public string StudentName { get; set; }
+
+        public int GradeId { get; set; }
     }
 }
