@@ -1,5 +1,7 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Ge.Admin.WebApi.Extensions;
+using Ge.Admin.WebApi.Extensions.AppExtensions;
 using Ge.Infrastructure;
 using Ge.Infrastructure.AotuFac;
 using Ge.Infrastructure.Options;
@@ -17,14 +19,16 @@ builder.Host
     }).ConfigureAppConfiguration((hostingContext, config) =>
     {
         hostingContext.Configuration.ConfigureApplication();
-    }); 
+    });
 
+builder.ConfigureApplication();
 #region Add services to the container.
 // Add services to the container.
 builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 builder.Services.AddScoped(typeof(IBaseService<>), typeof(BaseService<>));
 builder.Services.AddSingleton(new AppSettings(builder.Configuration));
 builder.Services.AddAllOptionRegister();
+
 #endregion
 
 
@@ -36,6 +40,7 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+app.UseApplicationSetup();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

@@ -1,3 +1,4 @@
+using Ge.Admin.WebApi.Extensions.AppExtensions;
 using Ge.Infrastructure;
 using Ge.Infrastructure.Options;
 using Microsoft.AspNetCore.Mvc;
@@ -13,18 +14,19 @@ namespace Ge.Admin.WebApi.Controllers
         
 
         private readonly ILogger<WeatherForecastController> _logger;
-        private readonly IOptions<RedisOptions> options;
+        
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, IOptions<RedisOptions> options)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
-            this.options = options;
+            
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
         public object Get()
-        {            
-            return options.Value;
+        {
+            RedisOptions redisOptions = App.GetOptions<RedisOptions>();
+            return redisOptions;
         }
     }
 }
