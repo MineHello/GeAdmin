@@ -1,5 +1,6 @@
 ﻿using Ge.Infrastructure;
 using SqlSugar;
+using SqlSugar.IOC;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,15 +15,15 @@ namespace Ge.ServiceCore.SqlSugar
         /// <summary>
         /// 所有库配置
         /// </summary>
-        public static readonly List<ConnectionConfig> AllConfigs = new();
+        public static readonly List<IocConfig> AllConfigs = new();
 
         /// <summary>
         /// 有效的库连接(除去Log库)
         /// </summary>
-        public static List<ConnectionConfig> ValidConfig = new();
+        public static List<IocConfig> ValidConfig = new();
 
-        public static ConnectionConfig MainConfig;
-        public static ConnectionConfig LogConfig; //日志库
+        public static IocConfig MainConfig;
+        public static IocConfig LogConfig; //日志库
 
         public static bool IsMulti => ValidConfig.Count > 1;
 

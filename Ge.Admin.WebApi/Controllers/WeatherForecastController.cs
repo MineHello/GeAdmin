@@ -1,5 +1,6 @@
 using Ge.Admin.WebApi.Extensions.AppExtensions;
 using Ge.Infrastructure;
+using Ge.Infrastructure.Attributes;
 using Ge.Infrastructure.Options;
 using Ge.Model;
 using Ge.Repository.UnitOfWork;
@@ -7,6 +8,7 @@ using Ge.ServiceCore.Services.IServices;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using SqlSugar;
+using System.Configuration;
 using System.Text.Json.Serialization;
 
 namespace Ge.Admin.WebApi.Controllers
@@ -19,26 +21,19 @@ namespace Ge.Admin.WebApi.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
         private readonly IStudentService studentService;
-        private readonly IUnitOfWorkManage uof;
+        private readonly ISaleService saleService;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, IStudentService studentService, IUnitOfWorkManage uof)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IStudentService studentService,ISaleService saleService)
         {
             _logger = logger;
             this.studentService = studentService;
-            this.uof = uof;
+            this.saleService = saleService;
         }
 
-        [HttpGet(Name = "GetWeatherForecast")]
+        [HttpGet(Name = "GetWeatherForecast")]        
         public object Get()
         {
-
-
-            Students students = new Students { StudentName = "zhangsan", GradeId = 1 };
-            bool v = studentService.Insert(students);
-
-
-
-            return v;
+            return saleService.GetList();
         }
     }
 }

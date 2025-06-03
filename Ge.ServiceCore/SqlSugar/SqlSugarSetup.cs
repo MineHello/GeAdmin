@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SqlSugar.IOC;
 
 namespace Ge.ServiceCore.SqlSugar
 {
@@ -27,18 +28,14 @@ namespace Ge.ServiceCore.SqlSugar
 
             BaseDBConfig.MutiConnectionString.allDbs.ForEach(m =>
             {
-                var config = new ConnectionConfig()
+                var config = new IocConfig()
                 {
                     ConfigId = m.ConnId.ObjToString().ToLower(),
                     ConnectionString = m.Connection,
-                    DbType = (DbType)m.DbType,
+                    DbType = (IocDbType)m.DbType,
                     IsAutoCloseConnection = true,
-                    MoreSettings = new ConnMoreSettings()
-                    {
-                        IsAutoRemoveDataCache = true,
-                        SqlServerCodeFirstNvarchar = true,
-                    },
-                    InitKeyType = InitKeyType.Attribute
+                    
+                    
                 };
                 if (SqlSugarConst.LogConfigId.ToLower().Equals(m.ConnId.ToLower()))
                 {
@@ -59,10 +56,14 @@ namespace Ge.ServiceCore.SqlSugar
 
             // SqlSugarScope是线程安全，可使用单例注入
             // 参考：https://www.donet5.com/Home/Doc?typeId=1181
-            services.AddSingleton<ISqlSugarClient>(o =>
-            {
-                return new SqlSugarScope(BaseDBConfig.AllConfigs);
-            });
+            //services.AddSingleton<ISqlSugarClient>(o =>
+            //{
+            //    return new SqlSugarScope(BaseDBConfig.AllConfigs);
+            //});
+
+            // SqlSugar ioc
+            services.AddSqlSugar(BaseDBConfig.AllConfigs);
+
         }
     }
 

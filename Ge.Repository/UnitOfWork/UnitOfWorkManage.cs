@@ -3,6 +3,7 @@ using System.Reflection;
 using Ge.Infrastructure;
 using Microsoft.Extensions.Logging;
 using SqlSugar;
+using SqlSugar.IOC;
 
 namespace Ge.Repository.UnitOfWork
 {
@@ -15,9 +16,9 @@ namespace Ge.Repository.UnitOfWork
         public int TranCount => _tranCount;
         public readonly ConcurrentStack<string> TranStack = new();
 
-        public UnitOfWorkManage(ISqlSugarClient sqlSugarClient, ILogger<UnitOfWorkManage> logger)
+        public UnitOfWorkManage( ILogger<UnitOfWorkManage> logger)
         {
-            _sqlSugarClient = sqlSugarClient;
+            _sqlSugarClient = DbScoped.Sugar;
             _logger = logger;
             _tranCount = 0;
         }

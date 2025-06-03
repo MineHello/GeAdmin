@@ -1,9 +1,9 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Ge.Admin.WebApi.Extensions;
+using Ge.Admin.WebApi.Extensions.AotuFac;
 using Ge.Admin.WebApi.Extensions.AppExtensions;
 using Ge.Infrastructure;
-using Ge.Infrastructure.AotuFac;
 using Ge.Infrastructure.Options;
 using Ge.Repository;
 using Ge.ServiceCore;
@@ -23,6 +23,8 @@ builder.Host
     });
 
 builder.ConfigureApplication();
+
+
 #region Add services to the container.
 // Add services to the container.
 builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
