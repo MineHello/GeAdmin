@@ -1,4 +1,5 @@
 using Autofac;
+using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
 using Ge.Admin.WebApi.Extensions;
 using Ge.Admin.WebApi.Extensions.AotuFac;
@@ -8,6 +9,10 @@ using Ge.Infrastructure.Options;
 using Ge.Repository;
 using Ge.ServiceCore;
 using Ge.ServiceCore.SqlSugar;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,8 +37,66 @@ builder.Services.AddScoped(typeof(IBaseService<>), typeof(BaseService<>));
 builder.Services.AddSingleton(new AppSettings(builder.Configuration));
 builder.Services.AddAllOptionRegister();
 builder.Services.AddSqlsugarSetup();
+
+
 #endregion
 
+
+#region jwt
+// JWT
+///添加认证toekn
+var symmetricKeyAsBase64 = "aihsduiogaiusjnicoaschuoiasucs561612313";
+var keyByteArray = Encoding.UTF8.GetBytes(symmetricKeyAsBase64);
+var signingKey = new SymmetricSecurityKey(keyByteArray);
+// 令牌验证参数
+var tokenValidationParameters = new TokenValidationParameters
+{
+    ValidateIssuerSigningKey = true,
+    IssuerSigningKey = signingKey,
+    ValidateIssuer = true,
+    ValidIssuer = "wg",//发行人
+    ValidateAudience = true,
+    ValidAudience = "wg",//订阅人
+    ValidateLifetime = true,
+    ClockSkew = TimeSpan.FromSeconds(30),
+    RequireExpirationTime = true,
+};
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = tokenValidationParameters;
+    });
+
+builder.Services.AddSwaggerGen(c =>
+{
+    //添加Jwt验证设置,添加请求头信息
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+        {
+            {
+                new OpenApiSecurityScheme
+                {
+                    Reference = new OpenApiReference
+                    {
+                        Id = "Bearer",
+                        Type = ReferenceType.SecurityScheme
+                    }
+                },
+                new List<string>()
+            }
+        });
+
+    //放置接口Auth授权按钮
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Description = "Value Bearer {token}",
+        Name = "Authorization",//jwt默认的参数名称
+        In = ParameterLocation.Header,//jwt默认存放Authorization信息的位置(请求头中)
+        Type = SecuritySchemeType.ApiKey
+    });
+});
+
+#endregion
 
 
 builder.Services.AddControllers();
@@ -50,7 +113,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+//认证
+app.UseAuthorization();
+//授权
 app.UseAuthorization();
 
 app.MapControllers();

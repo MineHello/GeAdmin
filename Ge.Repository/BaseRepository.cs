@@ -11,6 +11,7 @@ namespace Ge.Repository
 {
     public class BaseRepository<T> :  SimpleClient<T>,IBaseRepository<T> where T : class,new()
     {
+
         public ITenant itenant = null;//多租户事务
 
         public BaseRepository(ISqlSugarClient context = null):base(context) {

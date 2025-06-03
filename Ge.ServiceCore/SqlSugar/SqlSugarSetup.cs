@@ -33,8 +33,7 @@ namespace Ge.ServiceCore.SqlSugar
                     ConfigId = m.ConnId.ObjToString().ToLower(),
                     ConnectionString = m.Connection,
                     DbType = (IocDbType)m.DbType,
-                    IsAutoCloseConnection = true,
-                    
+                    IsAutoCloseConnection = true,                   
                     
                 };
                 if (SqlSugarConst.LogConfigId.ToLower().Equals(m.ConnId.ToLower()))
