@@ -36,7 +36,7 @@ namespace Ge.Admin.WebApi.Controllers
             this.saleService = saleService;
         }
 
-        [Authorize]
+        [Authorize("Permission")]
         [HttpGet(Name = "GetWeatherForecast")]        
         public object Get()
         {
@@ -61,7 +61,8 @@ namespace Ge.Admin.WebApi.Controllers
                 new Claim(ClaimTypes.Expiration, DateTime.Now.AddSeconds(1000).ToString()),
                 new Claim(JwtRegisteredClaimNames.Iss,iss),
                 new Claim(JwtRegisteredClaimNames.Aud,aud),
-                new Claim(ClaimTypes.Role,"admin")
+                new Claim(ClaimTypes.Role,"admin"),
+                
             };
 
 

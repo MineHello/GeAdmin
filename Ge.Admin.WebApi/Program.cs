@@ -4,12 +4,15 @@ using Autofac.Extensions.DependencyInjection;
 using Ge.Admin.WebApi.Extensions;
 using Ge.Admin.WebApi.Extensions.AotuFac;
 using Ge.Admin.WebApi.Extensions.AppExtensions;
+using Ge.Admin.WebApi.Extensions.CustomerAuth;
 using Ge.Infrastructure;
 using Ge.Infrastructure.Options;
 using Ge.Repository;
 using Ge.ServiceCore;
 using Ge.ServiceCore.SqlSugar;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
@@ -37,8 +40,8 @@ builder.Services.AddScoped(typeof(IBaseService<>), typeof(BaseService<>));
 builder.Services.AddSingleton(new AppSettings(builder.Configuration));
 builder.Services.AddAllOptionRegister();
 builder.Services.AddSqlsugarSetup();
-
-
+builder.Services.AddScoped<IAuthorizationHandler, PermissionRequment>();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 #endregion
 
 
@@ -98,6 +101,14 @@ builder.Services.AddSwaggerGen(c =>
 
 #endregion
 
+#region
+
+builder.Services.AddAuthorization(c =>
+{
+    c.AddPolicy("Permission",p => p.Requirements.Add(new PermissionRequment()));
+});
+
+#endregion
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -114,7 +125,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 //»œ÷§
-app.UseAuthorization();
+app.UseAuthentication();
 // ⁄»®
 app.UseAuthorization();
 
