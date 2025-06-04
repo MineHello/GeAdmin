@@ -55,6 +55,9 @@ builder.Services.ConfigurationSugar(db =>
 });
 #endregion
 
+//≥ı ºªØ±Ì
+builder.Services.InitTables();
+
 
 #region jwt
 // JWT

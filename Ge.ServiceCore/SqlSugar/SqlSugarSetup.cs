@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SqlSugar.IOC;
+using System.Reflection;
 
 namespace Ge.ServiceCore.SqlSugar
 {
@@ -33,8 +34,8 @@ namespace Ge.ServiceCore.SqlSugar
                     ConfigId = m.ConnId.ObjToString().ToLower(),
                     ConnectionString = m.Connection,
                     DbType = (IocDbType)m.DbType,
-                    IsAutoCloseConnection = true,                   
-                    
+                    IsAutoCloseConnection = true,
+
                 };
                 if (SqlSugarConst.LogConfigId.ToLower().Equals(m.ConnId.ToLower()))
                 {
@@ -63,7 +64,20 @@ namespace Ge.ServiceCore.SqlSugar
             // SqlSugar ioc
             services.AddSqlSugar(BaseDBConfig.AllConfigs);
 
+
+
         }
+
+        public static void InitTables(this IServiceCollection collection)
+        {
+            Type[] types = Assembly
+        .LoadFrom(AppContext.BaseDirectory + "Ge.Model.dll")//如果 .dll报错，可以换成 xxx.exe 有些生成的是exe 
+        .GetTypes().Where(it => it.FullName.Contains("Ge.Model"))//命名空间过滤，可以写其他条件
+        .ToArray();//断点调试一下是不是需要的Type，不是需要的在进行过滤
+            
+            DbScoped.Sugar.GetConnectionScope(MainDb.CurrentDbConnId.ToLower()).CodeFirst.InitTables(types);
+        }
+
     }
 
 }
