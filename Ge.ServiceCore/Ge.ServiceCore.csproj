@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Ge.Common\Ge.Common.csproj" />
     <ProjectReference Include="..\Ge.Repository\Ge.Repository.csproj" />
   </ItemGroup>
 

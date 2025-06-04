@@ -42,6 +42,17 @@ builder.Services.AddAllOptionRegister();
 builder.Services.AddSqlsugarSetup();
 builder.Services.AddScoped<IAuthorizationHandler, PermissionRequment>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.ConfigurationSugar(db =>
+{
+    db.GetConnection("main").Aop.OnLogExecuting = (sql, p) =>
+    {
+        Console.WriteLine(sql);
+    };
+    db.GetConnection("zr").Aop.OnLogExecuting = (sql, p) =>
+    {
+        Console.WriteLine(sql);
+    };
+});
 #endregion
 
 
@@ -101,7 +112,7 @@ builder.Services.AddSwaggerGen(c =>
 
 #endregion
 
-#region
+#region 自定义策略
 
 builder.Services.AddAuthorization(c =>
 {
