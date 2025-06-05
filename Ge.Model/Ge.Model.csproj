@@ -12,4 +12,7 @@
 	<ItemGroup>
 		<PackageReference Include="SqlSugarCore" Version="5.1.4.145" />
 	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\Ge.Infrastructure\Ge.Infrastructure.csproj" />
+	</ItemGroup>
 </Project>

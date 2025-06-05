@@ -10,6 +10,9 @@ namespace Ge.Model
     {
         [SqlSugar.SugarColumn(IsPrimaryKey =true,IsIdentity =true)]
         public int StudentId { get; set; }
+        /// <summary>
+        /// 学生姓名
+        /// </summary>
         public string StudentName { get; set; }
 
         public int GradeId { get; set; }

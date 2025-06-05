@@ -61,7 +61,13 @@ builder.Services.ConfigurationSugar(db =>
 #region jwt
 // JWT
 ///添加认证toekn
-var symmetricKeyAsBase64 = "aihsduiogaiusjnicoaschuoiasucs561612313";
+///
+
+string iss = AppSettings.app(new string[] { "Audience", "Issuer" });
+string aud = AppSettings.app(new string[] { "Audience", "Audience" });
+string secret = AppSettings.app(new string[] { "Audience", "Secret" });
+
+var symmetricKeyAsBase64 = secret;
 var keyByteArray = Encoding.UTF8.GetBytes(symmetricKeyAsBase64);
 var signingKey = new SymmetricSecurityKey(keyByteArray);
 // 令牌验证参数
@@ -70,9 +76,9 @@ var tokenValidationParameters = new TokenValidationParameters
     ValidateIssuerSigningKey = true,
     IssuerSigningKey = signingKey,
     ValidateIssuer = true,
-    ValidIssuer = "wg",//发行人
+    ValidIssuer = iss,//发行人
     ValidateAudience = true,
-    ValidAudience = "wg",//订阅人
+    ValidAudience = aud,//订阅人
     ValidateLifetime = true,
     ClockSkew = TimeSpan.FromSeconds(30),
     RequireExpirationTime = true,
