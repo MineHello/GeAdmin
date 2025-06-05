@@ -20,8 +20,7 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 //替换Autofac容器
-builder.Host
-                .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
     .ConfigureContainer<ContainerBuilder>(builder =>
     {
         builder.RegisterModule<AutoFacMoudleRegister>();
@@ -56,7 +55,7 @@ builder.Services.ConfigurationSugar(db =>
 #endregion
 
 //初始化表
-builder.Services.InitTables();
+//builder.Services.InitTables();
 
 
 #region jwt
@@ -111,6 +110,11 @@ builder.Services.AddSwaggerGen(c =>
         In = ParameterLocation.Header,//jwt默认存放Authorization信息的位置(请求头中)
         Type = SecuritySchemeType.ApiKey
     });
+
+    ////就是这里！！！！！！！！！
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, "SwaggerDoc.xml");//这个就是刚刚配置的xml文件名
+    c.IncludeXmlComments(xmlPath, true);//默认的第二个参数是false，这个是controller的注释，记得修改
+
 });
 
 #endregion

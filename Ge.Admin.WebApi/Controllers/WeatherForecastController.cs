@@ -19,8 +19,7 @@ using System.Text.Json.Serialization;
 namespace Ge.Admin.WebApi.Controllers
 {
     [ApiController]
-    [Route("[controller]/[action]")]
-    
+    [Route("[controller]/[action]")]    
     public class WeatherForecastController : ControllerBase
     {
 
@@ -43,6 +42,10 @@ namespace Ge.Admin.WebApi.Controllers
             return saleService.GetList();
         }
 
+        /// <summary>
+        /// ªÒ»°token
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public string GetToken()
         {
