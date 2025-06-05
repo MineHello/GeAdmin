@@ -16,5 +16,101 @@
             通过事件获取WebApplication的状态。
             </summary>
         </member>
+        <member name="T:Ge.Admin.WebApi.Extensions.CustomerAuth.PermissionHandler">
+            <summary>
+            权限授权处理器 继承AuthorizationHandler ，并且需要一个权限必要参数
+            </summary>
+        </member>
+        <member name="P:Ge.Admin.WebApi.Extensions.CustomerAuth.PermissionHandler.Schemes">
+            <summary>
+            验证方案提供对象
+            </summary>
+        </member>
+        <member name="P:Ge.Admin.WebApi.Extensions.CustomerAuth.PermissionHandler._roleModulePermissionServices">
+            <summary>
+            services 层注入
+            </summary>
+        </member>
+        <member name="M:Ge.Admin.WebApi.Extensions.CustomerAuth.PermissionHandler.#ctor(Microsoft.AspNetCore.Authentication.IAuthenticationSchemeProvider,Ge.ServiceCore.Services.IServices.IRoleModulePermissionService,Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+            <summary>
+            构造函数注入
+            </summary>
+            <param name="schemes"></param>
+            <param name="roleModulePermissionServices"></param>
+        </member>
+        <member name="T:Ge.Admin.WebApi.Extensions.CustomerAuth.PermissionItem">
+            <summary>
+            用户或角色或其他凭据实体
+            </summary>
+        </member>
+        <member name="P:Ge.Admin.WebApi.Extensions.CustomerAuth.PermissionItem.Role">
+            <summary>
+            用户或角色或其他凭据名称
+            </summary>
+        </member>
+        <member name="P:Ge.Admin.WebApi.Extensions.CustomerAuth.PermissionItem.Url">
+            <summary>
+            请求Url
+            </summary>
+        </member>
+        <member name="T:Ge.Admin.WebApi.Extensions.CustomerAuth.PermissionRequirement">
+            <summary>
+            必要参数类，
+            继承 IAuthorizationRequirement，用于设计自定义权限处理器PermissionHandler
+            因为AuthorizationHandler 中的泛型参数 TRequirement 必须继承 IAuthorizationRequirement
+            </summary>
+        </member>
+        <member name="P:Ge.Admin.WebApi.Extensions.CustomerAuth.PermissionRequirement.Permissions">
+            <summary>
+            用户权限集合
+            </summary>
+        </member>
+        <member name="P:Ge.Admin.WebApi.Extensions.CustomerAuth.PermissionRequirement.DeniedAction">
+            <summary>
+            无权限action
+            </summary>
+        </member>
+        <member name="P:Ge.Admin.WebApi.Extensions.CustomerAuth.PermissionRequirement.ClaimType">
+            <summary>
+            认证授权类型
+            </summary>
+        </member>
+        <member name="P:Ge.Admin.WebApi.Extensions.CustomerAuth.PermissionRequirement.LoginPath">
+            <summary>
+            请求路径
+            </summary>
+        </member>
+        <member name="P:Ge.Admin.WebApi.Extensions.CustomerAuth.PermissionRequirement.Issuer">
+            <summary>
+            发行人
+            </summary>
+        </member>
+        <member name="P:Ge.Admin.WebApi.Extensions.CustomerAuth.PermissionRequirement.Audience">
+            <summary>
+            订阅人
+            </summary>
+        </member>
+        <member name="P:Ge.Admin.WebApi.Extensions.CustomerAuth.PermissionRequirement.Expiration">
+            <summary>
+            过期时间
+            </summary>
+        </member>
+        <member name="P:Ge.Admin.WebApi.Extensions.CustomerAuth.PermissionRequirement.SigningCredentials">
+            <summary>
+            签名验证
+            </summary>
+        </member>
+        <member name="M:Ge.Admin.WebApi.Extensions.CustomerAuth.PermissionRequirement.#ctor(System.String,System.Collections.Generic.List{Ge.Admin.WebApi.Extensions.CustomerAuth.PermissionItem},System.String,System.String,System.String,Microsoft.IdentityModel.Tokens.SigningCredentials,System.TimeSpan)">
+            <summary>
+            构造
+            </summary>
+            <param name="deniedAction">拒约请求的url</param>
+            <param name="permissions">权限集合</param>
+            <param name="claimType">声明类型</param>
+            <param name="issuer">发行人</param>
+            <param name="audience">订阅人</param>
+            <param name="signingCredentials">签名验证实体</param>
+            <param name="expiration">过期时间</param>
+        </member>
     </members>
 </doc>

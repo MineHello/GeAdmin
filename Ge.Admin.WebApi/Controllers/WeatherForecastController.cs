@@ -36,7 +36,7 @@ namespace Ge.Admin.WebApi.Controllers
             this.saleService = saleService;
         }
 
-        [Authorize(Roles ="admin")]
+        [Authorize("Permission")]
         [HttpGet(Name = "GetWeatherForecast")]        
         public object Get()
         {

@@ -7,6 +7,7 @@ using Ge.Admin.WebApi.Extensions.AppExtensions;
 using Ge.Admin.WebApi.Extensions.CustomerAuth;
 using Ge.Infrastructure;
 using Ge.Infrastructure.Options;
+using Ge.Model;
 using Ge.Repository;
 using Ge.ServiceCore;
 using Ge.ServiceCore.SqlSugar;
@@ -15,6 +16,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Security.Claims;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -39,7 +41,7 @@ builder.Services.AddScoped(typeof(IBaseService<>), typeof(BaseService<>));
 builder.Services.AddSingleton(new AppSettings(builder.Configuration));
 builder.Services.AddAllOptionRegister();
 builder.Services.AddSqlsugarSetup();
-builder.Services.AddScoped<IAuthorizationHandler, PermissionRequment>();
+builder.Services.AddScoped<IAuthorizationHandler, PermissionHandler>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.ConfigurationSugar(db =>
 {
@@ -126,10 +128,21 @@ builder.Services.AddSwaggerGen(c =>
 #endregion
 
 #region 自定义策略
+var permission = new List<PermissionItem>();
+var signingCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);
+var permissionRequirement = new PermissionRequirement(
+    "/api/denied",// 拒绝授权的跳转地址（目前无用）
+    permission,//这里还记得么，就是我们上边说到的角色地址信息凭据实体类 Permission
+    ClaimTypes.Role,//基于角色的授权
+    iss,//发行人
+    aud,//订阅人
+    signingCredentials,//签名凭据
+    expiration: TimeSpan.FromSeconds(60 * 2)//接口的过期时间，注意这里没有了缓冲时间，你也可以自定义，在上边的TokenValidationParameters的 ClockSkew
+    );
 
 builder.Services.AddAuthorization(c =>
 {
-    c.AddPolicy("Permission",p => p.Requirements.Add(new PermissionRequment()));
+    c.AddPolicy("Permission",p => p.Requirements.Add(permissionRequirement));
 });
 
 #endregion
