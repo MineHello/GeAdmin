@@ -4,7 +4,7 @@
         <name>Ge.Admin.WebApi</name>
     </assembly>
     <members>
-        <member name="M:Ge.Admin.WebApi.Controllers.WeatherForecastController.GetToken">
+        <member name="M:Ge.Admin.WebApi.Controllers.TestController.GetToken">
             <summary>
             获取token
             </summary>

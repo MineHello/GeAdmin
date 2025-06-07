@@ -24,16 +24,16 @@ namespace Ge.Admin.WebApi.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]    
-    public class WeatherForecastController : ControllerBase
+    public class TestController : ControllerBase
     {
 
 
-        private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ILogger<TestController> _logger;
         private readonly IStudentService studentService;
         private readonly ISaleService saleService;
         private readonly ICaching _caching;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, IStudentService studentService,ISaleService saleService,ICaching caching)
+        public TestController(ILogger<TestController> logger, IStudentService studentService,ISaleService saleService,ICaching caching)
         {
             _logger = logger;
             this.studentService = studentService;
@@ -63,7 +63,7 @@ namespace Ge.Admin.WebApi.Controllers
         [HttpGet(Name = "GetUserInfo")]
         public async Task<object> GetUserInfo()
         {
-            Log.Debug("我是一个debug");
+            Log.Information("123111111111111111111");
 
             return "";
         }

@@ -18,9 +18,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using Serilog.Filters;
 using System.Security.Claims;
 using System.Text;
-
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -30,7 +30,8 @@ var configuration = builder.Configuration;
 
 // ÅäÖÃ Serilog
 Log.Logger = new LoggerConfiguration()
-    .ReadFrom.Configuration(configuration)
+    //.Filter.ByIncludingOnly(Matching.FromSource("GeAdmin"))
+    .WriteTo.Console()
     .CreateLogger();
 
 
@@ -159,7 +160,7 @@ var permissionRequirement = new PermissionRequirement(
 
 builder.Services.AddAuthorization(c =>
 {
-    c.AddPolicy("Permission",p => p.Requirements.Add(permissionRequirement));
+    c.AddPolicy("Permission", p => p.Requirements.Add(permissionRequirement));
 });
 
 #endregion
