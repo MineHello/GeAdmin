@@ -20,13 +20,14 @@ namespace Ge.Admin.WebApi.Extensions.AotuFac
             var servicesDllFile = Path.Combine(basePath, "Ge.ServiceCore.dll");
             var repositoryDllFile = Path.Combine(basePath, "Ge.Repository.dll");
 
-            var typeAops = new List<Type> { typeof(TranAOP) };
+            var typeAops = new List<Type> { typeof(TranAOP), typeof(CacheAOP) };
 
             // 获取 Service.dll 程序集服务，并注册
             var assemblysServices = Assembly.LoadFrom(servicesDllFile);
             var assemblysRepository = Assembly.LoadFrom(repositoryDllFile);
 
             builder.RegisterType<TranAOP>();
+            builder.RegisterType<CacheAOP>();
 
             builder.RegisterAssemblyTypes(assemblysServices)
                 .AsImplementedInterfaces()

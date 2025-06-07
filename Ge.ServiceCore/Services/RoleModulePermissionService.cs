@@ -1,4 +1,5 @@
-﻿using Ge.Model;
+﻿using Ge.Infrastructure.Attributes;
+using Ge.Model;
 using Ge.ServiceCore.Services.IServices;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,7 @@ namespace Ge.ServiceCore.Services
         /// 获取全部 角色接口(按钮)关系数据 注意我使用咱们之前的AOP缓存，很好的应用上了
         /// </summary>
         /// <returns></returns>
+        [Caching(AbsoluteExpiration =30)]
         public async Task<List<RoleModulePermission>> GetRoleModule()
         {
             var roleModulePermissions = await base.GetListAsync(a => a.IsDeleted == false);
