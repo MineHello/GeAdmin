@@ -17,10 +17,23 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Serilog;
 using System.Security.Claims;
 using System.Text;
 
+
+
 var builder = WebApplication.CreateBuilder(args);
+
+// ∂¡»°≈‰÷√
+var configuration = builder.Configuration;
+
+// ≈‰÷√ Serilog
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(configuration)
+    .CreateLogger();
+
+
 
 //ÃÊªªAutofac»›∆˜
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
@@ -31,6 +44,8 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
     {
         hostingContext.Configuration.ConfigureApplication();
     });
+
+builder.Host.UseSerilog();
 
 builder.ConfigureApplication();
 

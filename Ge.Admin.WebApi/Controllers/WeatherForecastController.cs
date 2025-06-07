@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
+using Serilog;
 using SqlSugar;
 using System.Configuration;
 using System.IdentityModel.Tokens.Jwt;
@@ -62,8 +63,7 @@ namespace Ge.Admin.WebApi.Controllers
         [HttpGet(Name = "GetUserInfo")]
         public async Task<object> GetUserInfo()
         {
-            _caching.SetString("name", "zhangsan");            
-
+            Log.Debug("我是一个debug");
 
             return "";
         }
