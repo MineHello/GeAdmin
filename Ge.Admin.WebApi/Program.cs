@@ -10,6 +10,7 @@ using Ge.Infrastructure.Options;
 using Ge.Model;
 using Ge.Repository;
 using Ge.ServiceCore;
+using Ge.ServiceCore.Redis;
 using Ge.ServiceCore.SqlSugar;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -54,6 +55,7 @@ builder.Services.ConfigurationSugar(db =>
         Console.WriteLine(sql);
     };
 });
+builder.Services.AddCacheSetup();
 #endregion
 
 //≥ı ºªØ±Ì

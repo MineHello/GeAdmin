@@ -2,6 +2,7 @@ using Ge.Admin.WebApi.Extensions.AppExtensions;
 using Ge.Common;
 using Ge.Infrastructure;
 using Ge.Infrastructure.Attributes;
+using Ge.Infrastructure.Caches;
 using Ge.Infrastructure.Options;
 using Ge.Model;
 using Ge.Repository.UnitOfWork;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using SqlSugar;
 using System.Configuration;
 using System.IdentityModel.Tokens.Jwt;
@@ -28,12 +30,14 @@ namespace Ge.Admin.WebApi.Controllers
         private readonly ILogger<WeatherForecastController> _logger;
         private readonly IStudentService studentService;
         private readonly ISaleService saleService;
+        private readonly ICaching _caching;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, IStudentService studentService,ISaleService saleService)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IStudentService studentService,ISaleService saleService,ICaching caching)
         {
             _logger = logger;
             this.studentService = studentService;
             this.saleService = saleService;
+            this._caching = caching;
         }
 
         [Authorize("Permission")]
@@ -53,5 +57,16 @@ namespace Ge.Admin.WebApi.Controllers
             return JwtHelper.IssueJwt(new JwtHelper.TokenModelJwt { Uid = 1, Role = "admin",Work= "π‹¿Ì‘±" });
 
         }
+
+
+        [HttpGet(Name = "GetUserInfo")]
+        public async Task<object> GetUserInfo()
+        {
+            _caching.SetString("name", "zhangsan");            
+
+
+            return "";
+        }
+
     }
 }
