@@ -14,6 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Serilog;
 using SqlSugar;
+using StackExchange.Profiling;
 using System.Configuration;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -63,9 +64,12 @@ namespace Ge.Admin.WebApi.Controllers
         [HttpGet(Name = "GetUserInfo")]
         public async Task<object> GetUserInfo()
         {
-            Log.Information("123111111111111111111");
-
-            return "";
+            using (MiniProfiler.Current.Step("开始加载数据："))
+            {
+                Log.Information("123111111111111111111");
+                MiniProfiler.Current.Step("GetUserInfo end ...");
+                return "";
+            }
         }
 
     }

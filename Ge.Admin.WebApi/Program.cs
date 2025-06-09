@@ -20,7 +20,9 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using Serilog.Filters;
+using StackExchange.Profiling.Storage;
 using System.Configuration;
+using System.Reflection;
 using System.Security.Claims;
 using System.Text;
 
@@ -189,6 +191,19 @@ builder.Services.AddAuthorization(c =>
 
 #endregion
 
+
+#region MiniProfiler
+builder.Services.AddMiniProfiler(options =>
+{
+    // 可选配置
+    options.RouteBasePath = "/profiler"; // UI访问路径
+    options.ColorScheme = StackExchange.Profiling.ColorScheme.Auto;
+    options.EnableDebugMode = true; // 开发环境启用调试模式
+    options.TrackConnectionOpenClose = true; // 跟踪数据库连接
+
+});
+#endregion
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -196,19 +211,31 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+app.UseIpRateLimiting();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(
+        c =>
+    {
+
+        // 将swagger首页，设置成我们自定义的页面，记得这个字符串的写法：程序集名.index.html
+        c.IndexStream = () => Assembly.GetExecutingAssembly().GetManifestResourceStream("Ge.Admin.WebApi.index.html");
+
+    }
+    );
 }
 //认证
 app.UseAuthentication();
 //授权
 app.UseAuthorization();
 
-app.UseIpRateLimiting();
+app.UseStaticFiles();
 
 app.MapControllers();
+app.UseMiniProfiler();
+
 
 app.Run();
