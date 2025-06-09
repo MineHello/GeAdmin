@@ -1,3 +1,4 @@
+using AspNetCoreRateLimit;
 using Autofac;
 using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
@@ -19,6 +20,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using Serilog.Filters;
+using System.Configuration;
 using System.Security.Claims;
 using System.Text;
 
@@ -77,6 +79,28 @@ builder.Services.AddCacheSetup();
 //初始化表
 //builder.Services.InitTables();
 
+
+
+#region IpRateLimit
+IServiceCollection services = builder.Services;
+Microsoft.Extensions.Configuration.ConfigurationManager configuration1 = builder.Configuration;
+
+// 必需的服务
+services.AddOptions();
+services.AddMemoryCache();
+
+// 配置限流选项
+services.Configure<IpRateLimitOptions>(configuration1.GetSection("IpRateLimiting"));
+services.Configure<IpRateLimitPolicies>(configuration1.GetSection("IpRateLimitPolicies"));
+
+// 注册限流服务
+services.AddSingleton<IIpPolicyStore, MemoryCacheIpPolicyStore>();
+services.AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounterStore>();
+services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
+services.AddSingleton<IProcessingStrategy, AsyncKeyLockProcessingStrategy>();
+
+services.AddControllers();
+#endregion
 
 #region jwt
 // JWT
@@ -172,7 +196,6 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-app.UseApplicationSetup();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -183,6 +206,8 @@ if (app.Environment.IsDevelopment())
 app.UseAuthentication();
 //授权
 app.UseAuthorization();
+
+app.UseIpRateLimiting();
 
 app.MapControllers();
 
