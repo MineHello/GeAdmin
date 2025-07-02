@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using SqlSugar.IOC;
 using System.Reflection;
+using Ge.Admin.WebApi.Extensions.AppExtensions;
+using System.Collections;
 
 namespace Ge.ServiceCore.SqlSugar
 {
@@ -66,6 +68,7 @@ namespace Ge.ServiceCore.SqlSugar
 
 
 
+
         }
 
         public static void InitTables(this IServiceCollection collection)
@@ -75,8 +78,9 @@ namespace Ge.ServiceCore.SqlSugar
         .GetTypes().Where(it => it.FullName.Contains("Ge.Model"))//命名空间过滤，可以写其他条件
         .ToArray();//断点调试一下是不是需要的Type，不是需要的在进行过滤
             
-            DbScoped.Sugar.GetConnectionScope(MainDb.CurrentDbConnId.ToLower()).CodeFirst.InitTables(types);
+         DbScoped.Sugar.GetConnectionScope(MainDb.CurrentDbConnId.ToLower()).CodeFirst.InitTables(types);
         }
+
 
     }
 

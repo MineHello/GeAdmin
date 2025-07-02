@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
 
-namespace Infrastructure.Extensions
+namespace Ge.Infrastructure.Extensions
 {
     public static partial class Extensions
     {

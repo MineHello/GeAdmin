@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SqlSugar;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,5 +17,9 @@ namespace Ge.Model
         public string StudentName { get; set; }
 
         public int GradeId { get; set; }
+
+        [SugarColumn(IsNullable = true)]
+        public string? Remark { get; set; }
+
     }
 }

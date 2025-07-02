@@ -32,10 +32,8 @@ var builder = WebApplication.CreateBuilder(args);
 // 读取配置
 var configuration = builder.Configuration;
 
-// 配置 Serilog
 Log.Logger = new LoggerConfiguration()
-    //.Filter.ByIncludingOnly(Matching.FromSource("GeAdmin"))
-    .WriteTo.Console()
+    .ReadFrom.Configuration(configuration)
     .CreateLogger();
 
 
@@ -79,7 +77,7 @@ builder.Services.AddCacheSetup();
 #endregion
 
 //初始化表
-//builder.Services.InitTables();
+builder.Services.InitTables();
 
 
 

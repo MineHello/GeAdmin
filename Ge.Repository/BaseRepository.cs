@@ -1,5 +1,5 @@
 ﻿using Ge.Model;
-using Infrastructure.Extensions;
+using Ge.Infrastructure.Extensions;
 using Mapster;
 using SqlSugar;
 using SqlSugar.IOC;
