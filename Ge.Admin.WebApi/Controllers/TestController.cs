@@ -64,6 +64,9 @@ namespace Ge.Admin.WebApi.Controllers
         [HttpGet(Name = "GetUserInfo")]
         public async Task<object> GetUserInfo()
         {
+
+            studentService.;
+
             using (MiniProfiler.Current.Step("开始加载数据："))
             {
                 Log.Information("123111111111111111111");
