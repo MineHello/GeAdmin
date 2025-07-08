@@ -76,8 +76,8 @@ builder.Services.ConfigurationSugar(db =>
 builder.Services.AddCacheSetup();
 #endregion
 
-//初始化表
-builder.Services.InitTables();
+////初始化表
+//builder.Services.InitTables();
 
 
 

@@ -30,25 +30,17 @@ namespace Ge.Admin.WebApi.Controllers
 
 
         private readonly ILogger<TestController> _logger;
-        private readonly IStudentService studentService;
-        private readonly ISaleService saleService;
+
         private readonly ICaching _caching;
 
-        public TestController(ILogger<TestController> logger, IStudentService studentService,ISaleService saleService,ICaching caching)
+        public TestController(ILogger<TestController> logger,ICaching caching)
         {
             _logger = logger;
-            this.studentService = studentService;
-            this.saleService = saleService;
+
             this._caching = caching;
         }
 
-        [Authorize("Permission")]
-        [HttpGet(Name = "GetWeatherForecast")]        
-        public object Get()
-        {
-            
-            return saleService.GetList();
-        }
+
 
         /// <summary>
         /// ªÒ»°token
@@ -65,9 +57,7 @@ namespace Ge.Admin.WebApi.Controllers
         [HttpGet(Name = "GetUserInfo")]
         public async Task<object> GetUserInfo()
         {
-            Students students = await studentService.GetByIdAsync(1);
-            students.StudentName = "zs123";
-            return await studentService.UpdateAsync(students);
+            return "123";
         }
 
     }

@@ -19,5 +19,6 @@
 		<PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.0" />
 		<PackageReference Include="Serilog.Extensions.Logging" Version="8.0.0" />
 		<PackageReference Include="StackExchange.Redis" Version="2.7.10" />
+		<PackageReference Include="MiniExcel" Version="1.41.1" />
 	</ItemGroup>
 </Project>
