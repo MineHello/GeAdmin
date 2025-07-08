@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SqlSugar.IOC;
 using System.Reflection;
-using Ge.Admin.WebApi.Extensions.AppExtensions;
+using Ge.Infrastructure.AppExtensions;
 using System.Collections;
 
 namespace Ge.ServiceCore.SqlSugar

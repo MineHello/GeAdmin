@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Ge.Admin.WebApi.Extensions.AppExtensions
+namespace Ge.Infrastructure.AppExtensions
 {
     public static class InternalApp
     {

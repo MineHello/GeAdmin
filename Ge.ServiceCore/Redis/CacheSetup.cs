@@ -1,4 +1,4 @@
-﻿using Ge.Admin.WebApi.Extensions.AppExtensions;
+﻿using Ge.Infrastructure.AppExtensions;
 using Ge.Infrastructure.Caches;
 using Ge.Infrastructure.Options;
 using Ge.Infrastructure.Redis;

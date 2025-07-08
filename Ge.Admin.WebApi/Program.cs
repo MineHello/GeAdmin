@@ -4,9 +4,11 @@ using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
 using Ge.Admin.WebApi.Extensions;
 using Ge.Admin.WebApi.Extensions.AotuFac;
-using Ge.Admin.WebApi.Extensions.AppExtensions;
+
 using Ge.Admin.WebApi.Extensions.CustomerAuth;
+using Ge.Common.DynamicApiSimple.Extens;
 using Ge.Infrastructure;
+using Ge.Infrastructure.AppExtensions;
 using Ge.Infrastructure.Options;
 using Ge.Model;
 using Ge.Repository;
@@ -18,6 +20,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 using Serilog;
 using Serilog.Filters;
 using StackExchange.Profiling.Storage;
@@ -25,6 +30,7 @@ using System.Configuration;
 using System.Reflection;
 using System.Security.Claims;
 using System.Text;
+using System.Text.Json.Serialization;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -74,12 +80,26 @@ builder.Services.ConfigurationSugar(db =>
     };
 });
 builder.Services.AddCacheSetup();
+
+builder.Services.AddDynamicApi();
 #endregion
 
 ////初始化表
 //builder.Services.InitTables();
 
-
+#region json 配置
+// .NET 6+ 在 Program.cs
+builder.Services.AddControllers()
+    .AddNewtonsoftJson(options => {
+        options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
+        options.SerializerSettings.Converters.Add(new IsoDateTimeConverter
+        {
+            DateTimeFormat = "yyyy-MM-dd HH:mm:ss",
+        });
+        // 设置为驼峰命名
+        options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+    });
+#endregion
 
 #region IpRateLimit
 IServiceCollection services = builder.Services;

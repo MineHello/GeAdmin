@@ -1,4 +1,4 @@
-﻿using Ge.Admin.WebApi.Extensions.AppExtensions;
+﻿using Ge.Infrastructure.AppExtensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;

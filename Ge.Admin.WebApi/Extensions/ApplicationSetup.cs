@@ -1,4 +1,4 @@
-﻿using Ge.Admin.WebApi.Extensions.AppExtensions;
+﻿using Ge.Infrastructure.AppExtensions;
 using Serilog;
 
 namespace Ge.Admin.WebApi.Extensions

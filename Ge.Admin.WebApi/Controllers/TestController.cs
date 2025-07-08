@@ -1,12 +1,14 @@
-using Ge.Admin.WebApi.Extensions.AppExtensions;
 using Ge.Common;
 using Ge.Infrastructure;
 using Ge.Infrastructure.Attributes;
 using Ge.Infrastructure.Caches;
 using Ge.Infrastructure.Options;
 using Ge.Model;
+using Ge.Model.System.Dto;
 using Ge.Repository.UnitOfWork;
+using Ge.ServiceCore.Services;
 using Ge.ServiceCore.Services.IServices;
+using Infrastructure.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -25,40 +27,24 @@ namespace Ge.Admin.WebApi.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]    
-    public class TestController : ControllerBase
+    public class TestController : BaseController
     {
 
+        private readonly ISysUserService _userService;
 
-        private readonly ILogger<TestController> _logger;
-
-        private readonly ICaching _caching;
-
-        public TestController(ILogger<TestController> logger,ICaching caching)
+        public TestController(ISysUserService userService)
         {
-            _logger = logger;
-
-            this._caching = caching;
+            _userService = userService;
         }
 
-
-
-        /// <summary>
-        /// 获取token
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        public string GetToken()
+        [HttpGet("list")]
+        public IActionResult List([FromQuery] SysUserQueryDto user, PagerInfo pager)
         {
-            return JwtHelper.IssueJwt(new JwtHelper.TokenModelJwt { Uid = 1, Role = "admin",Work= "管理员" });
+            var list = _userService.SelectUserList(user, pager);
 
+            return SUCCESS(list);
         }
 
-
-        [HttpGet(Name = "GetUserInfo")]
-        public async Task<object> GetUserInfo()
-        {
-            return "123";
-        }
 
     }
 }

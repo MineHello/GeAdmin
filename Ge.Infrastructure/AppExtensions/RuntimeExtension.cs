@@ -3,7 +3,7 @@ using Serilog;
 using System.Reflection;
 using System.Runtime.Loader;
 
-namespace Ge.Admin.WebApi.Extensions.AppExtensions
+namespace Ge.Infrastructure.AppExtensions
 {
     public static class RuntimeExtension
     {
